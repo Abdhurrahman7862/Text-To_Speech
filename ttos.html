@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            display:flex;background-color: rgb(36, 255, 146);
+            align-items: center;justify-content: center;
+        }.container{
+            background-color: whitesmoke;width: 40%;
+            padding: 2%;
+        }.container header{
+            font-size: 29px;
+            font-family: 500;
+            text-align: center;
+        }.row{
+            display: flex;
+            flex-direction: column;
+            padding:4px;
+        }
+        button{
+            width: 100%;background-color: cornsilk;
+        }
+        .row select{
+            width:100%;
+            margin-bottom: 10px;padding: 5px;
+        }
+        .row .textarea{
+            padding: 8px 10px;
+        }
+        .row label{
+            margin-bottom: 5px;
+        }
+        .change{
+            background-color: black;color: crimson;border-radius: 100px;width: 90px;
+            height: 90px;display: flex;flex-wrap: wrap;position: absolute;left: 10px;top: 10px;align-items: center;justify-content: space-around;
+            
+        }
+        
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="change" onclick="change(event)"><p>change to <br>dark mode</p></div>
+        <header>TEXT TO SPEECH</header>
+        <form action="">        <div class="row">
+            <label for="">ENTER TEXT</label>
+            <input class="textarea">
+        </div>
+        <div class="row">
+            <label for="">SELECT VOICE</label>
+            <div class="outer">
+                <select name="" id="">
+
+                </select>
+            </div>
+        </div>
+        <button >CONVERT TO SPEEECH</button>
+    </div></form>
+
+</body>
+
+<script>
+    var bg=document.querySelector(".change");
+    function change(event){
+        bg.event.target.style.backgroundcolor="white";
+    }
+    const textarea=document.querySelector(".textarea")
+        speechBtn=document.querySelector("button");
+        voiceList=document.querySelector("select")
+        function textToSpeech(text){
+            let utternance=new SpeechSynthesisUtterance(text)
+            speechSynthesis.speak(utternance)
+        }let synth=speechSynthesis
+        function voices(){
+            for(let voice of synth.getVoices()){
+                console.log(voice)
+                let option =`<option value="${voice.name}">${voice.name}(${voice.lang})</option>`
+                voiceList.insertAdjacentHTML("beforeend",option)
+            }
+        }
+        synth.addEventListener("voiceschanged",voices)
+        speechBtn.addEventListener("click",e =>{
+            e.preventDefault()
+            if(textarea.value != ""){
+                /*textToSpeech(textarea.value)*/
+                let utternance=new SpeechSynthesisUtterance(textarea.value)
+            synth.speak(utternance)
+            
+            
+            }
+        })
+</script>
+</body>
+</html>
